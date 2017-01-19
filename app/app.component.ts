@@ -11,16 +11,19 @@ import { Component } from '@angular/core';
     </ul>
     <hr>
     <div>
-      <h3>{{selectedTask.description}}</h3>
-      <p>Task Complete? {{selectedTask.done}}</p>
-      <h3>Edit Task</h3>
-      <label>Enter Task Description:</label>
-      <input [(ngModel)]="selectedTask.description">
-      <label>Enter Task Priority (1-3):</label>
-      <br>
-      <input type="radio" [(ngModel)]="selectedTask.priority" [value]="1">1 (Low Priority)<br>
-      <input type="radio" [(ngModel)]="selectedTask.priority" [value]="2">2 (Medium Priority)<br>
-      <input type="radio" [(ngModel)]="selectedTask.priority" [value]="3">3 (High Priority)
+      <div *ngIf="selectedTask">
+        <h3>{{selectedTask.description}}</h3>
+        <p>Task Complete? {{selectedTask.done}}</p>
+        <h3>Edit Task</h3>
+        <label>Enter Task Description:</label>
+        <input [(ngModel)]="selectedTask.description">
+        <label>Enter Task Priority (1-3):</label>
+        <br>
+        <input type="radio" [(ngModel)]="selectedTask.priority" [value]="1">1 (Low Priority)<br>
+        <input type="radio" [(ngModel)]="selectedTask.priority" [value]="2">2 (Medium Priority)<br>
+        <input type="radio" [(ngModel)]="selectedTask.priority" [value]="3">3 (High Priority)
+        <button (click)="finishedEditing()">Done</button>
+      </div>
     </div>
   </div>
   `
@@ -42,6 +45,9 @@ export class AppComponent {
   selectedTask: Task = this.tasks[0];
   editTask(clickedTask) {
     this.selectedTask = clickedTask;
+  }
+  finishedEditing() {
+    this.selectedTask = null;
   }
   isDone(clickedTask: Task) {
     if(clickedTask.done === true) {
